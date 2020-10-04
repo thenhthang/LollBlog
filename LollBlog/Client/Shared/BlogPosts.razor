@@ -1,0 +1,19 @@
+﻿@using LollBlog.Shared
+@foreach(var post in Posts)
+{
+    <div style="margin:20px;">
+        <div>
+            <h3>@post.Title</h3>
+        </div>
+        <div>
+            @post.Description
+        </div>
+    </div>
+}
+@code{
+    public List<BlogPost> Posts { get; set; } = new List<BlogPost>()
+        {
+            new BlogPost {Title="Welcome to my blog",Description="My first blog"},
+            new BlogPost {Title="This is a first post",Description="Hello word"}
+        };
+}
