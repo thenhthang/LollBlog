@@ -1,4 +1,5 @@
 ﻿@inherits EmployeeItemBase
+@using Pam.Components
 
 <div class="card m-3" style="min-width:18rem;max-width:30.5%;">
     <div class="card-header">
@@ -16,3 +17,7 @@
 
     </div>
 </div>
+<MessageBox MessageBoxChanged="MessageDialogResult"
+            @ref="DeleteMessageBox"
+            Title="Thông báo" Message="@($"Bạn có chắc muốn xoá nhân viên {Employee.FirstName}")">
+</MessageBox>

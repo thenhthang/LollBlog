@@ -22,6 +22,7 @@ namespace LollBlog.Client.Pages
         private int _EmployeeID { get; set; }
         public Employee Employee { get; set; } = new Employee();
         public EditEmployeeModel EditEmployeeModel { get; set; } = new EditEmployeeModel();
+        protected Pam.Components.MessageBoxBase DeleteMessageBox { get; set; }
         [Inject]
         public NavigationManager NavigationManager { get; set; }
         public string DepartmentId { get; set; }
@@ -67,14 +68,22 @@ namespace LollBlog.Client.Pages
                 NavigationManager.NavigateTo("/employeelist");
             }
         }
-        protected async Task Delete_Click()
+        protected void Delete_Click()
         {
-            if (Employee.EmployeeId > 0)
+            DeleteMessageBox.Show();
+        }
+        protected async Task MessageDialogResult(int value)
+        {
+            if(value == 1)
             {
-                await EmployeeService.DeleteEmployee(Employee.EmployeeId);
-                NavigationManager.NavigateTo("/employeelist");
+                if (Employee.EmployeeId > 0)
+                {
+                    await EmployeeService.DeleteEmployee(Employee.EmployeeId);
+                    NavigationManager.NavigateTo("/employeelist");
+                }
             }
         }
+
         private void MapEmployee(Employee source,EditEmployeeModel des)
         {
             des.DepartmentId = source.DepartmentId;

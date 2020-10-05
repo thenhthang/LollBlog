@@ -24,10 +24,23 @@ namespace LollBlog.Client.Pages
         {
             await OnEmployeeSelection.InvokeAsync((bool)e.Value);
         }
-        public async Task Delete_Click()
+        public void Delete_Click()
         {
-            await EmployeeService.DeleteEmployee(Employee.EmployeeId);
-            await OnDeleteEmployee.InvokeAsync(Employee.EmployeeId);
+            DeleteMessageBox.Show();
         }
+        public async Task MessageDialogResult(int value)
+        {
+            if(value == 1)
+            {
+                await EmployeeService.DeleteEmployee(Employee.EmployeeId);
+                await OnDeleteEmployee.InvokeAsync(Employee.EmployeeId);
+            }
+        }
+        //public async Task Delete_Click()
+        //{
+        //    await EmployeeService.DeleteEmployee(Employee.EmployeeId);
+        //    await OnDeleteEmployee.InvokeAsync(Employee.EmployeeId);
+        //}
+        protected Pam.Components.MessageBoxBase DeleteMessageBox { get; set; }
     }
 }

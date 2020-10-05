@@ -1,5 +1,6 @@
 ﻿@page "/editemployee/{id}"
 @page "/editemployee"
+@using Pam.Components 
 @inherits EditEmployeeBase
 <h3>@PageHeaderText</h3>
 
@@ -74,3 +75,8 @@
     }
 
 </EditForm>
+
+<MessageBox Title="Thông báo" Message="@($"Bạn có chắc muốn xoá nhân viên {Employee.FirstName}")"
+            MessageBoxChanged="MessageDialogResult" @ref="DeleteMessageBox">
+
+</MessageBox>
