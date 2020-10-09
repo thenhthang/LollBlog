@@ -27,6 +27,7 @@ namespace LollBlog.Server.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("DepartmentName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DepartmentId");
@@ -73,18 +74,22 @@ namespace LollBlog.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhotoPath")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EmployeeId");
+
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Employees");
 
@@ -133,6 +138,53 @@ namespace LollBlog.Server.Migrations
                             LastName = "Longway",
                             PhotoPath = "images/sara.png"
                         });
+                });
+
+            modelBuilder.Entity("LollBlog.Shared.User", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            Email = "abc@gmail.com",
+                            FirstName = "Quốc",
+                            LastName = "Trần",
+                            Password = "81DC9BDB52D04DC20036DBD8313ED055",
+                            PhoneNumber = "0356132533"
+                        });
+                });
+
+            modelBuilder.Entity("LollBlog.Shared.Employee", b =>
+                {
+                    b.HasOne("LollBlog.Shared.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

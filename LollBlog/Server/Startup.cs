@@ -30,6 +30,7 @@ namespace LollBlog.Server
             options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
             services.AddScoped<IDepartmentRepositoty, DepartmentRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

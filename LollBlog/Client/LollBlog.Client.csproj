@@ -33,5 +33,6 @@
     <Folder Include="wwwroot\images\" />
     <Folder Include="Services\" />
     <Folder Include="Models\" />
+    <Folder Include="Pages\Auth\" />
   </ItemGroup>
 </Project>
