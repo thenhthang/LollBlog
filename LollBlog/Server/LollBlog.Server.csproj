@@ -14,8 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Client\LollBlog.Client.csproj" />
     <ProjectReference Include="..\Shared\LollBlog.Shared.csproj" />
+    <ProjectReference Include="..\Client\LollBlog.Client.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
        <Watch Include="..\Client\**\*.razor" /> 
