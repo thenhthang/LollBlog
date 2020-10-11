@@ -30,8 +30,9 @@ namespace LollBlog.Client
                 if (currentUser != null && currentUser.Email != null)
                     {
                         Console.WriteLine("Khac null");
-                        var claim = new Claim(ClaimTypes.Name, currentUser.Email);
-                        var claimsIdentity = new ClaimsIdentity(new[] { claim }, "serverAuth");
+                        var claimEmailAddress = new Claim(ClaimTypes.Name, currentUser.Email);
+                        var claimIdentifier = new Claim(ClaimTypes.NameIdentifier, Convert.ToString(currentUser.UserId));
+                        var claimsIdentity = new ClaimsIdentity(new[] {claimEmailAddress,claimIdentifier }, "serverAuth");
                         var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                         return new AuthenticationState(claimsPrincipal);
                     }

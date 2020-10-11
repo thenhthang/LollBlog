@@ -7,24 +7,49 @@ using LollBlog.Shared;
 using System.Threading.Tasks;
 using LollBlog.Client.Services;
 using System.Linq;
-
+using Microsoft.AspNetCore.Components.Authorization;
+using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 namespace LollBlog.Client.Pages
 {
     public class EmployeeListBase : ComponentBase
     {
         [Inject]
         public IEmployeeService EmployeeService { get; set; }
+
         public bool ShowFooter { get; set; } = true;
 
         public IEnumerable<Employee> Employees { get; set; }
-        protected override async Task OnInitializedAsync()
-        {
-            Employees = (await EmployeeService.GetEmployees()).ToList();
-            //await Task.Run(LoadEmployees);
-        }
+        
         [Inject]
         NavigationManager NavigationManager { get; set; }
+
+        [Inject]
+        public AuthenticationStateProvider authenticationStateProvider { get; set; }
+
+        protected bool IsAuthenticated { get; set; } = false;
+
+        protected override async Task OnInitializedAsync()
+        {
+            var auth = await authenticationStateProvider.GetAuthenticationStateAsync();
+            var authUser = auth.User;
+            if (authUser.Identity.IsAuthenticated)
+            {
+                IsAuthenticated = true;
+                var claim = authUser.FindFirst(c => c.Type == ClaimTypes.NameIdentifier);
+                var userId = Convert.ToInt64(claim?.Value);
+                Employees = (await EmployeeService.GetEmployees()).ToList();
+            }
+            else
+            {
+                IsAuthenticated = false;
+            }
+            
+            //await Task.Run(LoadEmployees);
+        }
+
         protected int SelectedEmployeeCount { get; set; } = 0;
+         
         protected void EmployeeSelectionChanged(bool isSelected)
         {
             if (isSelected)
