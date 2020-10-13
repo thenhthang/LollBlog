@@ -31,8 +31,16 @@ namespace LollBlog.Client
                     {
                         Console.WriteLine("Khac null");
                         var claimEmailAddress = new Claim(ClaimTypes.Name, currentUser.Email);
-                        var claimIdentifier = new Claim(ClaimTypes.NameIdentifier, Convert.ToString(currentUser.UserId));
-                        var claimsIdentity = new ClaimsIdentity(new[] {claimEmailAddress,claimIdentifier }, "serverAuth");
+                        var claimIdentifier = new Claim(ClaimTypes.NameIdentifier,
+                            Convert.ToString(currentUser.UserId));
+                        var claimRole = new Claim(ClaimTypes.Role, currentUser.Role_ID.ToString());
+
+                        var claimsIdentity = new ClaimsIdentity(new[]
+                                                {
+                                                    claimEmailAddress,
+                                                    claimIdentifier,
+                                                    claimRole
+                                                }, "serverAuth");
                         var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                         return new AuthenticationState(claimsPrincipal);
                     }
@@ -42,7 +50,10 @@ namespace LollBlog.Client
                         return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
                     }
                 
-            }catch(Exception ex)
+
+
+            }
+            catch(Exception ex)
             {
                 Console.WriteLine("Loi: "+ex.ToString());
             }

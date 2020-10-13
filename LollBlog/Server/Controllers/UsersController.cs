@@ -43,7 +43,25 @@ namespace LollBlog.Server.Controllers
             User currentUser = new User();
             if (User.Identity.IsAuthenticated)
             {
+                /*
+               --------------------------------------------------------------
+               --------------------------------------------------------------
+                */
+                /*
+                --------------------------------------------------------------
+                --------------------------------------------------------------
+                 */
                 currentUser.Email =  User.FindFirstValue(ClaimTypes.Name);
+                currentUser.Role_ID = Convert.ToInt32(User.FindFirstValue(ClaimTypes.Role));
+                currentUser.UserId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                /*
+               --------------------------------------------------------------
+               --------------------------------------------------------------
+                */
+                /*
+               --------------------------------------------------------------
+               --------------------------------------------------------------
+                */
                 return Ok(currentUser);
             }
             else
@@ -63,7 +81,10 @@ namespace LollBlog.Server.Controllers
                 if (loggedInUser != null)
                 {
                     var claim = new Claim(ClaimTypes.Name, loggedInUser.Email);
-                    var claimsIdentity = new ClaimsIdentity(new[] { claim }, "serverAuth");
+                    var claimRole = new Claim(ClaimTypes.Role, loggedInUser.Role_ID.ToString());
+                    var claimNameIdentifier = new Claim(ClaimTypes.NameIdentifier, loggedInUser.UserId.ToString());
+
+                    var claimsIdentity = new ClaimsIdentity(new[] { claim,claimNameIdentifier,claimRole }, "serverAuth");
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                     HttpContext.SignInAsync(claimsPrincipal);
 
@@ -74,10 +95,10 @@ namespace LollBlog.Server.Controllers
                     return NotFound();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "" +
-                    "Error retrieving data from the database");
+                    "Error retrieving data from the database"+ex.ToString());
             }
 
         }

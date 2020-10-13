@@ -1,5 +1,7 @@
-﻿@page "/login"
+﻿@layout LoginLayout
+@page "/login"
 @inherits LoginBase
+
 <h3>Login</h3>
 <EditForm Model="UserModel" OnValidSubmit="HanleLoginSubmit">
     <div class="form-group row">

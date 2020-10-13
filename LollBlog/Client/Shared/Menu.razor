@@ -21,7 +21,7 @@
             </li>
             <AuthorizeView>
                 <Authorized>
-                    <h4>Xin chao @context.User.Identity.Name</h4>
+                    <h4>Xin chao @context.User.Identity.Name</h4><strong>@RoleName</strong>
                     <li class="nav-item">
                         <button class="btn btn-primary" @onclick="LogoutUser">Logout</button>
                     </li>
@@ -32,6 +32,15 @@
                     </li>
                 </NotAuthorized>
             </AuthorizeView>
+            <AuthorizeView  Roles = "1" >
+                <Authorized >
+                    <strong class="btn btn-primary">Role = CEO</strong>
+                </Authorized>
+                <NotAuthorized>
+                    <strong>Role = Developer</strong>
+                </NotAuthorized>
+            </AuthorizeView>
+
         </ul>
     </div>
 </nav>
