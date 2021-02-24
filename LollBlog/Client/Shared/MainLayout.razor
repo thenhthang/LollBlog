@@ -1,12 +1,22 @@
 ﻿@inherits LayoutComponentBase
 
-@*<div class="sidebar">
-    <NavMenu />
-</div>*@
+<!--<div class="sidebar">-->
+    @*<NavMenu />*@
+<!--</div>-->
+<AuthorizeView>
+    <Authorized>
+        <div class="main">
+            <Menu></Menu>
+            <div class="content px-4 container-fluid">
+                @Body
+            </div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <LollBlog.Client.Pages.RedirectToLogin></LollBlog.Client.Pages.RedirectToLogin>
+    </NotAuthorized>
+    <Authorizing>
+            <p>Chờ một chút...</p>
+    </Authorizing>
+</AuthorizeView>
 
-<div class="main">
-    <Menu></Menu>
-    <div class="content px-4 container">
-        @Body
-    </div>
-</div>

@@ -16,6 +16,7 @@ namespace LollBlog.Client.Shared
         public NavigationManager NavigationManager { get; set; }
         [Inject]
         public AuthenticationStateProvider authenticationStateProvider { get; set; }
+        protected bool expandSubNav = false;
         protected async override Task OnInitializedAsync()
         {
             var auth = await authenticationStateProvider.GetAuthenticationStateAsync();

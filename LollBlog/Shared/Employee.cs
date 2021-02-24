@@ -15,7 +15,10 @@ namespace LollBlog.Shared
         [EmailAddress]
         [EmailValidator(AllowedDomain ="tnquoc.com",ErrorMessage ="Only tnquoc.com is allwed")]
         public string Email { get; set; }
+
+        [DataType(DataType.DateTime)]
         public DateTime DateOfBrith { get; set; }
+
         public Gender Gender { get; set; }
         public int DepartmentId { get; set; }
         public string PhotoPath { get; set; }

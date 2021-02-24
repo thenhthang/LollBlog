@@ -1,6 +1,6 @@
 {
-  "name": "LollBlog",
-  "short_name": "LollBlog",
+  "name": "Healthcare",
+  "short_name": "Healthcare",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
